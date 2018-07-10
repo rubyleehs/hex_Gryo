@@ -17,6 +17,16 @@ public static class HexMetrics
         new Vector3(-innerRadius, 0f, -0.5f * outerRadius),
         new Vector3(-innerRadius, 0f, 0.5f * outerRadius)
         };
+
+    public static Vector2Int FromOffsetToAxialCoords(this int x, int y)
+    {
+        return new Vector2Int(x - y / 2, y);
+    }
+
+    public static Vector2Int FromAxialToOffsetCoords(int x, int y)
+    {
+        return new Vector2Int(x + y / 2, y);
+    }
 }
 
 public class HexGrid : MonoBehaviour
@@ -28,6 +38,7 @@ public class HexGrid : MonoBehaviour
 
     public GameObject cellPrefab;
     public HexCell[,] hexCells;
+    public RuneGrid runeGrid;
 
     private void Awake()
     {
@@ -38,7 +49,6 @@ public class HexGrid : MonoBehaviour
             for (int x = 0; x < width; x++)
             {
                 CreateCell(x, y);
-                
             }
         }
     }
@@ -51,7 +61,36 @@ public class HexGrid : MonoBehaviour
 
 
         HexCell cell = hexCells[x,y] = Instantiate(cellPrefab).GetComponent<HexCell>();
-        cell.axialCordinates = FromOffsetToAxialCoords(x, y);
+        cell.runeGrid = runeGrid;
+        cell.axialCordinates = HexMetrics.FromOffsetToAxialCoords(x, y);
+        cell.runeID = 0;
+
+        cell.cellNeighbours = new HexCell[6];
+
+        if (x > 0)
+        {
+            cell.SetNeighbour(HexDirection.W, hexCells[x - 1, y]);
+        }
+        if (y > 0)
+        {
+            if (y % 2 == 1)
+            {
+                cell.SetNeighbour(HexDirection.SW, hexCells[x, y - 1]);
+                if (x+1 < width)
+                {
+                    cell.SetNeighbour(HexDirection.SE, hexCells[x + 1, y - 1]);
+                }
+            }
+            else
+            {
+                if (x > 0)
+                {
+                    cell.SetNeighbour(HexDirection.SW, hexCells[x - 1, y - 1]);
+                }
+                cell.SetNeighbour(HexDirection.SE, hexCells[x, y - 1]);
+            }
+        }
+
 
         cell.transform.SetParent(this.transform, false);
         cell.transform.localPosition = cellPos;
@@ -59,17 +98,7 @@ public class HexGrid : MonoBehaviour
     }
 
 
-    public static Vector2Int FromOffsetToAxialCoords(int x, int y)
-    {
-        return new Vector2Int(x - y / 2, y);
-    }
-
-    public static Vector2Int FromAxialToOffsetCoords(int x, int y)
-    {
-        return new Vector2Int(x + y *2, y);
-    }
-
-    public List<HexCell> GetSurroundingCells(int radius, Vector2Int center)//returns in axial coords;
+    public List<HexCell> GetSurroundingCells(int radius, Vector2Int center)
     {
         List<HexCell> surroundingCells = new List<HexCell>();
 
@@ -91,30 +120,6 @@ public class HexGrid : MonoBehaviour
     }
 
 
-    private void Update()
-    {
-        if (Input.GetButtonDown("Fire1"))
-        {
-            Vector2 mousePos = Camera.main.ScreenPointToRay(Input.mousePosition).GetPoint(0);
-            
-
-            Transform tileClicked = FromWorldPosToTile(mousePos.x, mousePos.y);
-
-            //if (tileClicked == null) return;
-
-            List<HexCell> surroundCells = GetSurroundingCells(2, tileClicked.GetComponent<HexCell>().axialCordinates);
-
-            for (int i = 0; i < surroundCells.Count; i++)
-            {
-               // if (surroundCells[i] == null) return;
-
-               surroundCells[i].GetComponent<SpriteRenderer>().color = Color.red;
-            }
-
-            tileClicked.GetComponent<SpriteRenderer>().color = Color.yellow;
-        }
-    }
-
     public Transform FromWorldPosToTile(float x, float y)
     {
         int _y = Mathf.RoundToInt(y / ((HexMetrics.outerRadius + cellPadding) * 1.5f));
@@ -129,4 +134,6 @@ public class HexGrid : MonoBehaviour
             return null;
         }
     }
+
+  
 }

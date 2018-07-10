@@ -157,7 +157,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 150
+  orthographic size: 100
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -180,50 +180,33 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 519420028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 140, y: 120, z: -10}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1138853827
+--- !u!1 &943731072
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 1138853829}
-  - component: {fileID: 1138853828}
+  - component: {fileID: 943731073}
   m_Layer: 0
-  m_Name: Hex Grid
+  m_Name: CellHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1138853828
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1138853827}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0fda1c7a960977046b776a9af9a499f3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  width: 30
-  height: 30
-  cellPadding: 0.5
-  cellPrefab: {fileID: 1628413176003174, guid: 7f6f8d7ddbdbfbe4ebd26c5f3c4f5964, type: 2}
-  runeGrid: {fileID: 2051925908}
---- !u!4 &1138853829
+--- !u!4 &943731073
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1138853827}
+  m_GameObject: {fileID: 943731072}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -231,93 +214,224 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1162684271
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4305359324008860, guid: 7f6f8d7ddbdbfbe4ebd26c5f3c4f5964, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 157.54297
-      objectReference: {fileID: 0}
-    - target: {fileID: 4305359324008860, guid: 7f6f8d7ddbdbfbe4ebd26c5f3c4f5964, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 5.720764
-      objectReference: {fileID: 0}
-    - target: {fileID: 4305359324008860, guid: 7f6f8d7ddbdbfbe4ebd26c5f3c4f5964, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: -0.8182776
-      objectReference: {fileID: 0}
-    - target: {fileID: 4305359324008860, guid: 7f6f8d7ddbdbfbe4ebd26c5f3c4f5964, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4305359324008860, guid: 7f6f8d7ddbdbfbe4ebd26c5f3c4f5964, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4305359324008860, guid: 7f6f8d7ddbdbfbe4ebd26c5f3c4f5964, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4305359324008860, guid: 7f6f8d7ddbdbfbe4ebd26c5f3c4f5964, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4305359324008860, guid: 7f6f8d7ddbdbfbe4ebd26c5f3c4f5964, type: 2}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: 7f6f8d7ddbdbfbe4ebd26c5f3c4f5964, type: 2}
-  m_IsPrefabParent: 0
---- !u!1 &2051925907
+--- !u!1 &1149250506
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 2051925909}
-  - component: {fileID: 2051925908}
+  - component: {fileID: 1149250508}
+  - component: {fileID: 1149250507}
+  - component: {fileID: 1149250509}
+  - component: {fileID: 1149250510}
   m_Layer: 0
-  m_Name: Rune Grid
+  m_Name: Grid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2051925908
+--- !u!114 &1149250507
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2051925907}
+  m_GameObject: {fileID: 1149250506}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e98447b76ded9ea45a16e32098e2422e, type: 3}
+  m_Script: {fileID: 11500000, guid: 010ccbca1f6998648a301ffeeee2d317, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  runeSprites:
-  - {fileID: 21300000, guid: 5d3104941f4df5742b7f1941811687cb, type: 3}
-  - {fileID: 21300000, guid: 208ceda7d29e0e94a80de43e50b1de27, type: 3}
-  - {fileID: 21300000, guid: f3a6c30f67204ff4fa8031498bb42635, type: 3}
-  rune: {fileID: 1004810961451422, guid: 9c3fb979cce71614794c80c4e62c42aa, type: 2}
-  hexGrid: {fileID: 1138853828}
-  runesList: []
-  recheckList: []
-  movePeriod: 0.2
---- !u!4 &2051925909
+  width: 25
+  height: 25
+  cellPadding: 0.5
+  cellPrefab: {fileID: 1785982856210684, guid: c313d08eb20678045b200bda65b4b948, type: 2}
+  cellParent: {fileID: 943731073}
+--- !u!4 &1149250508
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2051925907}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 163.65372, y: 57.26003, z: -3.693185}
-  m_LocalScale: {x: 10, y: 10, z: 1}
+  m_GameObject: {fileID: 1149250506}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1149250509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1149250506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b4f193ec8f683b429073a59453a0aeb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hexGrid: {fileID: 1149250507}
+  runesList: []
+  sprites:
+  - {fileID: 21300000, guid: d085df3835b5f9b4c84f018e89a8b5aa, type: 3}
+  - {fileID: 21300000, guid: cec0c139f795fc44994d136e3e792f96, type: 3}
+  - {fileID: 21300000, guid: cec0c139f795fc44994d136e3e792f96, type: 3}
+  - {fileID: 21300000, guid: 7c426b4423611334f9feb7dd2ecf2765, type: 3}
+  - {fileID: 21300000, guid: 7c426b4423611334f9feb7dd2ecf2765, type: 3}
+  spriteColor:
+  - serializedVersion: 2
+    rgba: 4294705051
+  - serializedVersion: 2
+    rgba: 4278222079
+  - serializedVersion: 2
+    rgba: 4294901770
+  - serializedVersion: 2
+    rgba: 4280822015
+  - serializedVersion: 2
+    rgba: 4279564288
+  rune: {fileID: 1995900941064312, guid: 6b5aa42cc4b725941a900b4ef4216ce6, type: 2}
+  runeParent: {fileID: 1777800771}
+  runeMovePeriod: 0.2
+--- !u!120 &1149250510
+LineRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1149250506}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 0
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_RenderingLayerMask: 4294967295
+  m_Materials:
+  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_Positions:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 1, z: 0}
+  - {x: 0, y: 1, z: 0}
+  - {x: 0, y: 1, z: 0}
+  - {x: 0, y: 1, z: 0}
+  - {x: 0, y: 1, z: 0}
+  - {x: 0, y: 1, z: 0}
+  - {x: 0, y: 1, z: 0}
+  - {x: 0, y: 1, z: 0}
+  - {x: 0, y: 1, z: 0}
+  - {x: 0, y: 1, z: 0}
+  - {x: 0, y: 1, z: 0}
+  - {x: 0, y: 1, z: 0}
+  - {x: 0, y: 1, z: 0}
+  - {x: 0, y: 1, z: 0}
+  - {x: 0, y: 1, z: 0}
+  - {x: 0, y: 1, z: 0}
+  - {x: 0, y: 1, z: 0}
+  - {x: 0, y: 1, z: 0}
+  - {x: 0, y: 1, z: 0}
+  - {x: 0, y: 1, z: 0}
+  - {x: 0, y: 1, z: 0}
+  - {x: 0, y: 1, z: 0}
+  - {x: 0, y: 1, z: 0}
+  m_Parameters:
+    serializedVersion: 2
+    widthMultiplier: 0.8
+    widthCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.33333334
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    colorGradient:
+      serializedVersion: 2
+      key0: {r: 0, g: 0.4784314, b: 0.8000001, a: 1}
+      key1: {r: 0, g: 0.4784314, b: 0.8000001, a: 1}
+      key2: {r: 1, g: 1, b: 1, a: 0}
+      key3: {r: 0, g: 0, b: 0, a: 0}
+      key4: {r: 0, g: 0, b: 0, a: 0}
+      key5: {r: 0, g: 0, b: 0, a: 0}
+      key6: {r: 0, g: 0, b: 0, a: 0}
+      key7: {r: 0, g: 0, b: 0, a: 0}
+      ctime0: 0
+      ctime1: 65535
+      ctime2: 65535
+      ctime3: 0
+      ctime4: 0
+      ctime5: 0
+      ctime6: 0
+      ctime7: 0
+      atime0: 0
+      atime1: 65535
+      atime2: 0
+      atime3: 0
+      atime4: 0
+      atime5: 0
+      atime6: 0
+      atime7: 0
+      m_Mode: 0
+      m_NumColorKeys: 2
+      m_NumAlphaKeys: 2
+    numCornerVertices: 5
+    numCapVertices: 0
+    alignment: 0
+    textureMode: 0
+    generateLightingData: 0
+  m_UseWorldSpace: 1
+  m_Loop: 1
+--- !u!1 &1777800770
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1777800771}
+  m_Layer: 0
+  m_Name: RuneHolder
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1777800771
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1777800770}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
