@@ -89,7 +89,10 @@ public class RuneGrid : MonoBehaviour
         }
 
         mousePos = Camera.main.ScreenPointToRay(Input.mousePosition).GetPoint(0);
-        HexCell selectedCell = hexGrid.FromWorldPosToTile(mousePos.x, mousePos.y).GetComponent<HexCell>();
+        Transform cellTransform = hexGrid.FromWorldPosToTile(mousePos.x, mousePos.y);
+        if (cellTransform == null) return;
+
+        HexCell selectedCell = cellTransform.GetComponent<HexCell>();
         hexGrid.ShowSelectionPoints(selectedCell);
 
         if (Input.GetButtonDown("Fire2") && selectedCell != null)//&& AllowClick)

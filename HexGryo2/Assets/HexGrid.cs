@@ -63,9 +63,6 @@ public static class HexMetrics
 
         HexCell cell = hexCells[x, y] = Instantiate(cellPrefab).GetComponent<HexCell>();
         cell.arrayCoords = new Vector2Int(x, y);
-        //cell.runeGrid = runeGrid;
-        //cell.axialCordinates = HexMetrics.FromOffsetToAxialCoords(x, y);
-        //cell.runeID = 0;
 
         cell.cellNeighbours = new HexCell[6];
 
@@ -123,6 +120,7 @@ public static class HexMetrics
 
         for (int i = 0; i < 6; i++)
         {
+            if (cell.cellNeighbours[i] == null) return;
             Vector2 cellNeigbourPos = cell.cellNeighbours[i].transform.position;
             linePoints[i * 4] = cellNeigbourPos + HexMetrics.corners[i];
             linePoints[i * 4 + 1] = cellNeigbourPos + HexMetrics.corners[(i + 1) % 6];
