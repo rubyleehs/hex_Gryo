@@ -6,6 +6,7 @@ public class RuneGrid : MonoBehaviour
 {
     public HexGrid hexGrid;
     public List<Rune> runesList;
+    private List<Rune> inactiveRunes = new List<Rune>();
     public Sprite[] sprites;
     public Color32[] spriteColor;
 
@@ -18,7 +19,8 @@ public class RuneGrid : MonoBehaviour
     private bool ToCheckChain = false;
     private Vector3 mousePos;
     private bool ResortRunes = true;
-
+    private bool AllowInput = false;
+    private float stationaryTime;
     // Use this for initialization
     void Start()
     {
@@ -32,13 +34,15 @@ public class RuneGrid : MonoBehaviour
             ResortRunes = false;
             runesList.Sort(SortByHeight);
         }
-        IsMoving = true;
+        //IsMoving = true;
         timeElapsed += Time.deltaTime;
         for (int i = 0; i < runesList.Count; i++)
         {
             runesList[i].transform.position = Vector3.Lerp(runesList[i].currentCell.transform.position, runesList[i].nextCell.transform.position, timeElapsed / runeMovePeriod);
             if (runesList[i].IsRotating != 0 && runesList[i].runeID != 1)
             {
+                AllowInput = false;
+                IsMoving = true;
                 SpriteRenderer spriteRenderer = runesList[i].transform.GetComponent<SpriteRenderer>();
                 spriteRenderer.color = Color.Lerp(runesList[i].currentColor, spriteColor[runesList[i].runeID - 1], timeElapsed / runeMovePeriod);
 
@@ -56,8 +60,10 @@ public class RuneGrid : MonoBehaviour
         }
         if (timeElapsed > runeMovePeriod)
         {
+            RespawnRunes();
             runesList.Sort(SortByHeight);
             timeElapsed -= runeMovePeriod;
+
             IsMoving = false;
             for (int i = 0; i < runesList.Count; i++)
             {
@@ -65,7 +71,9 @@ public class RuneGrid : MonoBehaviour
                 runesList[i].nextCell = runesList[i].currentCell.FindRuneNextCell();
                 if (runesList[i].nextCell != runesList[i].currentCell)
                 {
+                    stationaryTime = 0;
                     IsMoving = true;
+                    AllowInput = false;
                     runesList[i].StartMoveSetup();
                 }
 
@@ -74,19 +82,14 @@ public class RuneGrid : MonoBehaviour
 
         if (!IsMoving)
         {
+            stationaryTime += Time.deltaTime;
             for (int i = 0; i < runesList.Count; i++)
             {
                 CheckAndDestroyChains();
-                ResortRunes = true;
             }
         }
 
 
-        if (Input.GetButtonDown("Fire1")) //&& AllowClick)
-        {
-
-            SummonRandomRune(mousePos);
-        }
 
         mousePos = Camera.main.ScreenPointToRay(Input.mousePosition).GetPoint(0);
         Transform cellTransform = hexGrid.FromWorldPosToTile(mousePos.x, mousePos.y);
@@ -95,8 +98,9 @@ public class RuneGrid : MonoBehaviour
         HexCell selectedCell = cellTransform.GetComponent<HexCell>();
         hexGrid.ShowSelectionPoints(selectedCell);
 
-        if (Input.GetButtonDown("Fire2") && selectedCell != null)//&& AllowClick)
+        if (Input.GetButtonDown("Fire1") && selectedCell != null && !IsMoving && AllowInput && stationaryTime >= runeMovePeriod)
         {
+            stationaryTime = 0;
             timeElapsed = 0;
             if (selectedCell.rune.runeID != 1)
             {
@@ -134,6 +138,7 @@ public class RuneGrid : MonoBehaviour
             }
             ResortRunes = true;
         }
+      
     }
 
     public void SummonRandomRune(Vector2 coords)
@@ -141,8 +146,17 @@ public class RuneGrid : MonoBehaviour
         Transform nearestTile = hexGrid.FromWorldPosToTile(coords.x, coords.y);
         if (nearestTile.GetComponent<HexCell>().rune == null)
         {
-            Rune summonedRune = Instantiate(rune, nearestTile.transform.position, Quaternion.identity,runeParent).GetComponent<Rune>();
-
+            Rune summonedRune;
+            if (inactiveRunes.Count == 0)
+            {
+                summonedRune = Instantiate(rune, nearestTile.transform.position, Quaternion.identity, runeParent).GetComponent<Rune>();
+            }
+            else
+            {
+                inactiveRunes[0].gameObject.SetActive(true);
+                summonedRune = inactiveRunes[0];
+                inactiveRunes.RemoveAt(0);
+            }
             int spriteInt = Random.Range(0, sprites.Length);
             SpriteRenderer spriteRenderer = summonedRune.GetComponent<SpriteRenderer>();
             spriteRenderer.sprite = sprites[spriteInt];
@@ -166,6 +180,7 @@ public class RuneGrid : MonoBehaviour
 
     void CheckAndDestroyChains()
     {
+        AllowInput = true;
         ToCheckChain = false;
         for (int i = 0; i < runesList.Count; i++)
         {
@@ -175,6 +190,8 @@ public class RuneGrid : MonoBehaviour
             }
             else
             {
+                AllowInput = false;
+  
                 runesList.RemoveAt(i);
                 i--;
             }
@@ -183,16 +200,27 @@ public class RuneGrid : MonoBehaviour
         {
             if (runesList[i].InChain)
             {
+                AllowInput = false;
+                inactiveRunes.Add(runesList[i]);
                 runesList[i].RemoveFromGrid();
                 runesList.RemoveAt(i);
                 i--;
             }
         }
+        
     }
 
     static int SortByHeight(Rune _a, Rune _b)
     {
         return _a.transform.position.y.CompareTo(_b.transform.position.y);
+    }
+
+    public void RespawnRunes()
+    {
+        for (int x = 0; x < hexGrid.width; x++)
+        {
+            SummonRandomRune(hexGrid.hexCells[x, hexGrid.height-1].transform.position);
+        }
     }
 
 }
