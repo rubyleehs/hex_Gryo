@@ -43,7 +43,7 @@ public static class HexMetrics
         lineRenderer = this.GetComponent<LineRenderer>();
         hexCells = new HexCell[width, height];
         mainCam = Camera.main;
-        mainCam.transform.position =  new Vector3(width * (HexMetrics.innerRadius + cellPadding - 0.5f), height * (HexMetrics.outerRadius + cellPadding - 0.5f) * 0.75f, -10);
+        mainCam.transform.position = 0.5f * new Vector3(width  * (HexMetrics.innerRadius + cellPadding) * 2f - HexMetrics.innerRadius, height  * (HexMetrics.outerRadius + cellPadding) * 1.5f - HexMetrics.outerRadius * 4, -10);
 
         for (int y = 0; y < height; y++)
         {
