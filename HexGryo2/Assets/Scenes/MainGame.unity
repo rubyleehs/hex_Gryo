@@ -157,7 +157,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 100
+  orthographic size: 72
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -243,8 +243,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 010ccbca1f6998648a301ffeeee2d317, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 25
-  height: 25
+  width: 15
+  height: 18
   cellPadding: 0.5
   cellPrefab: {fileID: 1785982856210684, guid: c313d08eb20678045b200bda65b4b948, type: 2}
   cellParent: {fileID: 943731073}
@@ -282,15 +282,15 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 7c426b4423611334f9feb7dd2ecf2765, type: 3}
   spriteColor:
   - serializedVersion: 2
-    rgba: 4294705051
+    rgba: 4291937185
   - serializedVersion: 2
-    rgba: 4278222079
+    rgba: 4291337139
   - serializedVersion: 2
-    rgba: 4294901770
+    rgba: 4286411239
   - serializedVersion: 2
-    rgba: 4280822015
+    rgba: 4286813751
   - serializedVersion: 2
-    rgba: 4279564288
+    rgba: 4285911727
   rune: {fileID: 1995900941064312, guid: 6b5aa42cc4b725941a900b4ef4216ce6, type: 2}
   runeParent: {fileID: 1777800771}
   runeMovePeriod: 0.2

@@ -36,7 +36,12 @@ public class RuneGrid : MonoBehaviour
         }
         //IsMoving = true;
         timeElapsed += Time.deltaTime;
-        for (int i = 0; i < runesList.Count; i++)
+
+        if (timeElapsed > runeMovePeriod)
+        {
+            RespawnRunes();
+        }
+            for (int i = 0; i < runesList.Count; i++)
         {
             runesList[i].transform.position = Vector3.Lerp(runesList[i].currentCell.transform.position, runesList[i].nextCell.transform.position, timeElapsed / runeMovePeriod);
             if (runesList[i].IsRotating != 0 && runesList[i].runeID != 1)
@@ -51,7 +56,7 @@ public class RuneGrid : MonoBehaviour
                 if (timeElapsed > runeMovePeriod)
                 {
                     runesList[i].transform.rotation = Quaternion.identity;
-                    spriteRenderer.flipY = !spriteRenderer.flipY;
+                    spriteRenderer.flipY = (runesList[i].runeID % 2 ==0);
                     runesList[i].currentColor = spriteColor[runesList[i].runeID - 1];
                     runesList[i].IsRotating = 0;
                 }
@@ -60,7 +65,6 @@ public class RuneGrid : MonoBehaviour
         }
         if (timeElapsed > runeMovePeriod)
         {
-            RespawnRunes();
             runesList.Sort(SortByHeight);
             timeElapsed -= runeMovePeriod;
 
@@ -82,11 +86,14 @@ public class RuneGrid : MonoBehaviour
 
         if (!IsMoving)
         {
-            stationaryTime += Time.deltaTime;
-            for (int i = 0; i < runesList.Count; i++)
+            if (stationaryTime <= runeMovePeriod)
             {
-                CheckAndDestroyChains();
+                for (int i = 0; i < runesList.Count; i++)
+                {
+                    CheckAndDestroyChains();
+                }
             }
+            stationaryTime += Time.deltaTime;
         }
 
 
